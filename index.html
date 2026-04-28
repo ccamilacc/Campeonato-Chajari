@@ -1,0 +1,695 @@
+<html>
+<head>
+<title>Clasificación del campeonato de ACEKP - Escuela</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<style type="text/css">
+
+/* -------------------------
+   TIPOGRAFÍA GENERAL
+------------------------- */
+body,
+table,
+li,
+h1,
+h2,
+h3,
+div {
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    font-size: 11px;
+    color: #222;
+}
+
+body {
+    background-color: #ffffff;
+    margin: 10px 0 0 0;
+}
+
+/* -------------------------
+   TABLAS
+------------------------- */
+table {
+    border-collapse: collapse;
+}
+
+table.points {
+    border-bottom: 1px solid #000;
+}
+
+table.footer {
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 9px;
+}
+
+table.runlegend {
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 9px;
+}
+
+/* -------------------------
+   FILAS
+------------------------- */
+tr.odd {
+    background-color: #f5f5f5;
+}
+
+/* -------------------------
+   HEADERS
+------------------------- */
+div.headerbig {
+    padding-left: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    border-top: 2px solid #a80e0a;
+    border-bottom: 2px solid #a80e0a;
+}
+
+div.headersmall {
+    padding-left: 15px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+th.competitor {
+    font-weight: 600;
+    border-bottom: 1px solid #999;
+    color: #333;
+}
+
+th.event {
+    font-size: 10px;
+    border-bottom: 1px solid #999;
+    color: #a80e0a;
+    text-align: center;
+}
+
+th.eventtotal {
+    font-weight: 600;
+    font-size: 10px;
+    background-color: #555;
+    color: #f5f5f5;
+    text-align: center;
+    min-width: 45px;
+}
+
+/* -------------------------
+   CELDAS GENERALES
+------------------------- */
+td {
+    padding: 2px 4px;
+}
+
+td.eventtotal {
+    text-align: center;
+    font-weight: 500;
+    color: #111;
+    min-width: 45px;
+}
+
+/* -------------------------
+   COLUMNAS FIJAS
+------------------------- */
+td.pos {
+    width: 35px;
+    text-align: right;
+    font-weight: bold;
+}
+
+td.no {
+    width: 50px;
+    text-align: right;
+}
+
+td.name {
+    width: 160px;
+    text-align: left;
+    padding-left: 8px;
+}
+
+td.total {
+    width: 45px;
+    text-align: right;
+    font-weight: bold;
+}
+
+td.diff,
+td.gap {
+    width: 35px;
+    text-align: right;
+    color: #666;
+    font-weight: 500;
+}
+
+/* -------------------------
+   COLORES DE RESULTADO
+------------------------- */
+td.egold {
+    background-color: #e6e65c;
+    color: #000;
+    text-align: center;
+    font-weight: 600;
+}
+
+td.esilver {
+    background-color: #d6d6d6;
+    color: #000;
+    text-align: center;
+    font-weight: 600;
+}
+
+td.ebronze {
+    background-color: #b89b6a;
+    color: #000;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* -------------------------
+   LEYENDA
+------------------------- */
+td.legend {
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+td.footername {
+    padding-right: 10px;
+}
+
+/* -------------------------
+   LINKS
+------------------------- */
+a {
+    font-size: 10px;
+    color: #BF110B;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #000;
+}
+/* -------------------------
+   LEYENDA COLORES
+------------------------- */
+td.gold {
+    background-color: #e6e65c;
+    color: #000;
+    text-align: center;
+    font-weight: 600;
+    padding: 2px 6px;
+}
+
+td.silver {
+    background-color: #d6d6d6;
+    color: #000;
+    text-align: center;
+    font-weight: 600;
+    padding: 2px 6px;
+}
+
+td.bronze {
+    background-color: #b89b6a;
+    color: #000;
+    text-align: center;
+    font-weight: 600;
+    padding: 2px 6px;
+}
+
+</style>
+</head>
+<body>
+<div style="width: 1400">
+<div class="headerbig">ACEKP - Escuela</div>
+<div class="headerbottom"/>
+<div class="headersmall">  Temporada: 2026</div>
+<table class="points" cellspacing="0 px">
+<tr class="header">
+<th colspan="6"></th>
+
+<th class="event" colspan="4" style="text-align:center;">
+1° Fecha - Gualeguay
+</th>
+
+<th class="event" colspan="5" style="text-align:center;">
+2° Fecha - Paraná
+</th>
+<th colspan="2"/>
+</tr>
+<tr>
+<th class="competitor">Pos.</th>
+<th class="competitor">N°</th>
+<th class="competitor">Nombre</th>
+<th class="competitor">Total</th>
+<th class="competitor">Dif. resp. 1°</th>
+<th class="competitor">Dif. resp. anterior</th>
+<th class="eventtotal">Total</th>
+<th class="eventtotal">Total</th>
+<th class="eventtotal">Total</th>
+<th class="eventtotal">Total</th>
+<th class="eventtotal">Total</th>
+<th class="eventtotal">Total</th>
+<th class="eventtotal">Total</th>
+<th class="eventtotal">Total</th>
+<th class="eventtotal">Total</th>
+</tr>
+<tr class="even">
+<td class="pos">1</td>
+<td class="no">2</td>
+<td class="name">Secchi Santiago </td>
+<td class="total">54</td>
+<td class="diff">0</td>
+<td class="gap">0</td>
+<td class="egold">2</td>
+<td class="egold">1</td>
+<td class="esilver">4</td>
+<td class="egold">20</td>
+<td class="egold">2</td>
+<td class="ebronze">0</td>
+<td class="egold">5</td>
+<td class="eventtotal">x</td>
+<td class="egold">20</td>
+</tr>
+<tr class="odd">
+<td class="pos">2</td>
+<td class="no">88</td>
+<td class="name">Dubois Mateo </td>
+<td class="total">41</td>
+<td class="diff">13</td>
+<td class="gap">13</td>
+<td class="eventtotal">2</td>
+<td class="esilver">0</td>
+<td class="eventtotal">2</td>
+<td class="esilver">15</td>
+<td class="eventtotal">2</td>
+<td class="egold">1</td>
+<td class="esilver">4</td>
+<td class="eventtotal">x</td>
+<td class="esilver">15</td>
+</tr>
+<tr class="even">
+<td class="pos">3</td>
+<td class="no">5</td>
+<td class="name">Benigni Valentino </td>
+<td class="total">28</td>
+<td class="diff">26</td>
+<td class="gap">13</td>
+<td class="esilver">2</td>
+<td class="eventtotal">0</td>
+<td class="ebronze">3</td>
+<td class="eventtotal">4</td>
+<td class="esilver">2</td>
+<td class="esilver">0</td>
+<td class="eventtotal">x</td>
+<td class="egold">5</td>
+<td class="ebronze">12</td>
+</tr>
+<tr class="odd">
+<td class="pos">4</td>
+<td class="no">7</td>
+<td class="name">Salvetti Guido </td>
+<td class="total">27</td>
+<td class="diff">27</td>
+<td class="gap">1</td>
+<td class="ebronze">2</td>
+<td class="ebronze">0</td>
+<td class="eventtotal">1</td>
+<td class="ebronze">12</td>
+<td class="ebronze">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">x</td>
+<td class="esilver">4</td>
+<td class="eventtotal">6</td>
+</tr>
+<tr class="even">
+<td class="pos">5</td>
+<td class="no">14</td>
+<td class="name">Salomon Federico </td>
+<td class="total">21</td>
+<td class="diff">33</td>
+<td class="gap">6</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">6</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="ebronze">3</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">8</td>
+</tr>
+<tr class="odd">
+<td class="pos">6</td>
+<td class="no">38</td>
+<td class="name">Tommasi Viktor </td>
+<td class="total">17</td>
+<td class="diff">37</td>
+<td class="gap">4</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">10</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">1</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">2</td>
+</tr>
+<tr class="even">
+<td class="pos">7</td>
+<td class="no">42</td>
+<td class="name">Bombaci Valentino </td>
+<td class="total">14</td>
+<td class="diff">40</td>
+<td class="gap">3</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">10</td>
+</tr>
+<tr class="odd">
+<td class="pos">8</td>
+<td class="no">99</td>
+<td class="name">Allodi Vicente </td>
+<td class="total">13</td>
+<td class="diff">41</td>
+<td class="gap">1</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="egold">5</td>
+<td class="eventtotal">3</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">1</td>
+<td class="eventtotal">0</td>
+</tr>
+<tr class="even">
+<td class="pos">9</td>
+<td class="no">9</td>
+<td class="name">Stivanello Santiago </td>
+<td class="total">12</td>
+<td class="diff">42</td>
+<td class="gap">1</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">1</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">x</td>
+<td class="ebronze">3</td>
+<td class="eventtotal">4</td>
+</tr>
+<tr class="odd">
+<td class="pos">10</td>
+<td class="no">8</td>
+<td class="name">Demarlengue Emilio </td>
+<td class="total">12</td>
+<td class="diff">42</td>
+<td class="gap">0</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">8</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">0</td>
+</tr>
+<tr class="even">
+<td class="pos">11</td>
+<td class="no">44</td>
+<td class="name">Franchini Antonio </td>
+<td class="total">7</td>
+<td class="diff">47</td>
+<td class="gap">5</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">3</td>
+</tr>
+<tr class="odd">
+<td class="pos">12</td>
+<td class="no">55</td>
+<td class="name">Garmendia Gala </td>
+<td class="total">7</td>
+<td class="diff">47</td>
+<td class="gap">0</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">1</td>
+</tr>
+<tr class="even">
+<td class="pos">13</td>
+<td class="no">66</td>
+<td class="name">Dubois Tomas </td>
+<td class="total">6</td>
+<td class="diff">48</td>
+<td class="gap">1</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">0</td>
+</tr>
+<tr class="odd">
+<td class="pos">14</td>
+<td class="no">40</td>
+<td class="name">Muller Isaac Alejo </td>
+<td class="total">4</td>
+<td class="diff">50</td>
+<td class="gap">2</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+</tr>
+<tr class="even">
+<td class="pos">15</td>
+<td class="no">30</td>
+<td class="name">Rios Faustino </td>
+<td class="total">4</td>
+<td class="diff">50</td>
+<td class="gap">0</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+</tr>
+<tr class="odd">
+<td class="pos">16</td>
+<td class="no">43</td>
+<td class="name">Marzoratti Elena </td>
+<td class="total">4</td>
+<td class="diff">50</td>
+<td class="gap">0</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">2</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">0</td>
+<td class="eventtotal">x</td>
+<td class="eventtotal">0</td>
+</tr>
+</table>
+<table class="runlegend" cellspacing="0 px">
+<tr>
+<td class="legend">Leyenda
+</td>
+<td class="gold">1</td>
+<td class="footername">1er puesto</td>
+<td class="silver">2</td>
+<td class="footername">2o puesto</td>
+<td class="bronze">3</td>
+<td class="footername">3er puesto</td>
+</tr>
+</table>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const table = document.querySelector("table.points");
+    if (!table) return;
+
+    const rows = table.querySelectorAll("tr");
+    const headerRow = rows[1]; // fila de nombres de columnas
+    const headers = headerRow.querySelectorAll("th");
+    const filas = Array.from(rows).slice(2); // datos
+
+    // -------------------------------
+    // DETECTAR BLOQUES POR FECHA
+    // -------------------------------
+    const headerEvents = rows[0].querySelectorAll("th.event");
+
+    let bloques = [];
+    let colActual = 6;
+
+    headerEvents.forEach(th => {
+        let span = parseInt(th.getAttribute("colspan")) || 1;
+
+        bloques.push({
+            inicio: colActual,
+            fin: colActual + span - 1
+        });
+
+        colActual += span;
+    });
+
+    // -------------------------------
+    // RENOMBRAR COLUMNAS POR BLOQUE
+    // -------------------------------
+    bloques.forEach(bloque => {
+
+        let columnasSerie = [];
+        let columnasFinal = [];
+
+        for (let col = bloque.inicio; col <= bloque.fin; col++) {
+
+            let valores = [];
+
+            filas.forEach(fila => {
+                const celda = fila.children[col];
+                if (!celda) return;
+
+                let val = celda.innerText.trim();
+
+                if (val.toLowerCase() === "x" || val === "") return;
+
+                let num = parseInt(val);
+                if (!isNaN(num)) valores.push(num);
+            });
+
+            if (valores.length === 0) continue;
+
+            let count2 = valores.filter(v => v === 2).length;
+            let count1 = valores.filter(v => v === 1).length;
+            let conPuntos = valores.filter(v => v > 0).length;
+
+            // Reglas
+            if (count2 > filas.length * 0.6) {
+                headers[col].innerText = "Part.";
+            }
+            else if (count1 === 1 && conPuntos <= 2) {
+                headers[col].innerText = "Clas.";
+            }
+            else if (conPuntos >= 4 && conPuntos <= 6) {
+                columnasSerie.push(col);
+            }
+            else if (conPuntos >= 8 && conPuntos <= 12) {
+                columnasFinal.push(col);
+            }
+        }
+
+        // SERIES
+        if (columnasSerie.length === 1) {
+            headers[columnasSerie[0]].innerText = "Serie";
+        } else {
+            columnasSerie.forEach((col, i) => {
+                headers[col].innerText = (i + 1) + "° Serie";
+            });
+        }
+
+        // FINALES
+        if (columnasFinal.length === 1) {
+            headers[columnasFinal[0]].innerText = "Final";
+        } else {
+            columnasFinal.forEach((col, i) => {
+                headers[col].innerText = (i + 1) + "° Final";
+            });
+        }
+
+    });
+
+    // -------------------------------
+    // SEPARADORES ENTRE FECHAS
+    // -------------------------------
+    let columnasInicio = [];
+    colActual = 6;
+
+    headerEvents.forEach(th => {
+        columnasInicio.push(colActual);
+        colActual += parseInt(th.getAttribute("colspan")) || 1;
+    });
+
+    rows.forEach(fila => {
+        const celdas = fila.children;
+
+        columnasInicio.forEach(col => {
+            if (celdas[col]) {
+                celdas[col].style.borderLeft = "3px solid black";
+            }
+        });
+    });
+    // -------------------------------
+// AJUSTAR ANCHO Y CENTRADO
+// -------------------------------
+
+// buscar una columna de referencia (la primera que diga "Serie")
+let anchoReferencia = null;
+
+for (let i = 6; i < headers.length; i++) {
+    if (headers[i].innerText.includes("Serie")) {
+        anchoReferencia = headers[i].offsetWidth;
+        break;
+    }
+}
+
+// si no encontró Serie, usa la primera de resultados
+if (!anchoReferencia) {
+    anchoReferencia = headers[6].offsetWidth;
+}
+
+// aplicar ancho y centrado
+for (let col = 6; col < headers.length; col++) {
+
+    // encabezados
+    headers[col].style.width = anchoReferencia + "px";
+    headers[col].style.textAlign = "center";
+
+    // celdas
+    filas.forEach(fila => {
+        const celda = fila.children[col];
+        if (!celda) return;
+
+        celda.style.width = anchoReferencia + "px";
+        celda.style.textAlign = "center";
+    });
+}
+});
+</script>
+</body>
+</html>
