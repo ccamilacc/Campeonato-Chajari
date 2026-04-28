@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Campeonato Diurno Chajarí</title>
+
+    <style>
+        /* ============================= */
+        /* BASE */
+        /* ============================= */
+        body {
+            font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+
+        .container {
+            width: 95%;
+            margin: 20px auto;
+        }
+
+        /* ============================= */
+        /* TABS */
+        /* ============================= */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .tab {
+            padding: 10px 18px;
+            cursor: pointer;
+            background: #e0e0e0;
+            margin-right: 5px;
+            border-radius: 6px 6px 0 0;
+            font-weight: 600;
+        }
+
+        .tab.active {
+            background: #fff;
+            border: 2px solid #ccc;
+            border-bottom: none;
+        }
+
+        /* ============================= */
+        /* CONTENIDO */
+        /* ============================= */
+        .tab-content {
+            display: none;
+            background: #fff;
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-top: none;
+            overflow-x: auto;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ============================= */
+        /* TABLAS PRO */
+        /* ============================= */
+        table.points {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        /* filas */
+        tr.odd {
+            background-color: #f5f5f5;
+        }
+
+        /* columnas base */
+        td.pos,
+        th:nth-child(1) {
+            width: 50px;
+            text-align: center;
+        }
+
+        td.no,
+        th:nth-child(2) {
+            font-weight: bold;
+            width: 50px;
+            text-align: center;
+        }
+
+        td.name,
+        th:nth-child(3) {
+            white-space: nowrap;
+            padding-left: 8px;
+        }
+
+        td.total,
+        td.diff,
+        td.gap {
+            text-align: center;
+            width: 80px;
+        }
+
+        /* columnas de eventos */
+        th.eventtotal,
+        td.eventtotal,
+        td.egold,
+        td.esilver,
+        td.ebronze {
+            text-align: center;
+            min-width: 65px;
+            white-space: nowrap;
+        }
+
+        /* -------------------------
+        LEYENDA COLORES
+        ------------------------- */
+        td.gold {
+            background-color: #e6e65c;
+            color: #000;
+            text-align: center;
+            font-weight: 600;
+            padding: 2px 6px;
+        }
+
+        td.silver {
+            background-color: #d6d6d6;
+            color: #000;
+            text-align: center;
+            font-weight: 600;
+            padding: 2px 6px;
+        }
+
+        td.bronze {
+            background-color: #b89b6a;
+            color: #000;
+            text-align: center;
+            font-weight: 600;
+            padding: 2px 6px;
+        }
+
+        /* encabezados */
+        th.competitor {
+            border-bottom: 1px solid #999;
+        }
+
+        th.event {
+            font-size: 10px;
+            border-bottom: 1px solid black;
+            color: #a80e0a;
+            text-align: center;
+        }
+
+        th.eventtotal {
+            font-size: 11px;
+            background-color: #555;
+            color: #fff;
+        }
+
+        /* colores */
+        td.egold {
+            background-color: #e6e65c;
+        }
+
+        td.esilver {
+            background-color: #d6d6d6;
+        }
+
+        td.ebronze {
+            background-color: #b89b6a;
+        }
+
+        /* headers */
+        .headerbig {
+            font-size: 16px;
+            font-weight: bold;
+            border-top: 2px solid #a80e0a;
+            border-bottom: 2px solid #a80e0a;
+            padding: 5px;
+        }
+
+        .headersmall {
+            font-size: 12px;
+            padding: 5px;
+            font-weight: bold;
+        }
+
+        /* leyenda */
+        table.runlegend {
+            margin-top: 10px;
+            font-size: 10px;
+        }
+
+        .vr {
+            font-size: 0.65em;
+            vertical-align: super;
+            margin-left: 2px;
+            font-weight: bold;
+            color: #c40000;
+            /* rojo tipo destacado */
+        }
+
+        /* ============================= */
+        /* SEPARADORES DE FECHAS */
+        /* ============================= */
+
+        /* línea gruesa automática entre fechas */
+        th.sep,
+        td.sep {
+            border-left: 3px solid black !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- TABS -->
+        <div class="tabs">
+            <div class="tab" onclick="openTab('escuela', this)">Escuela</div>
+            <div class="tab" onclick="openTab('promocional', this)">Promocional</div>
+            <div class="tab" onclick="openTab('150a', this)">150 A</div>
+            <div class="tab" onclick="openTab('150b', this)">150 B</div>
+            <div class="tab" onclick="openTab('150c', this)">150 C</div>
+            <!-- <div class="tab" onclick="openTab('150master', this)">150 Master</div>-->
+            <!-- <div class="tab" onclick="openTab('150sinbanco', this)">150 Sin Banco</div>-->
+        </div>
+
+        <!-- CONTENIDO -->
+        <div id="escuela" class="tab-content">
+            <div style="width: 1400">
+                <div class="headerbig">Chajarí - Escuela</div>
+                <div class="headerbottom"></div>
+                <div class="headersmall"> Temporada: 2026</div>
+                <table class="points" cellspacing="0 px">
+                    <colgroup>
+                        <col style="width:50px">
+                        <col style="width:60px">
+                        <col style="width:260px">
+                        <col style="width:70px">
+                        <col style="width:90px">
+                        <col style="width:90px">
+
+                        <!-- eventos -->
+                        <col span="20" style="width:55px">
+                    </colgroup>
+                    <tr class="header">
+                        <th colspan="6"></th>
+                        <th class="event" colspan="4" style="text-align:center;">
+                            1° Fecha
+                        </th>
+                        <th colspan="2" />
+                    </tr>
+                    <tr>
+                        <th class="competitor">Pos.</th>
+                        <th class="competitor">N°</th>
+                        <th class="competitor">Nombre</th>
+                        <th class="competitor">Total</th>
+                        <th class="competitor">Dif. resp. 1°</th>
+                        <th class="competitor">Dif. resp. anterior</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">1</td>
+                        <td class="no">2</td>
+                        <td class="name">Santiago STIVANELLO</td>
+                        <td class="total">27</td>
+                        <td class="diff">0</td>
+                        <td class="gap">0</td>
+                        <td class="egold">1</td>
+                        <td class="egold">1</td>
+                        <td class="egold">5</td>
+                        <td class="egold">20</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">2</td>
+                        <td class="no">35</td>
+                        <td class="name">Felipe CASERES</td>
+                        <td class="total">21</td>
+                        <td class="diff">6</td>
+                        <td class="gap">6</td>
+                        <td class="eventtotal">1</td>
+                        <td class="esilver">0</td>
+                        <td class="esilver">4</td>
+                        <td class="esilver">16<sup class="vr">VR</sup></td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">3</td>
+                        <td class="no">4</td>
+                        <td class="name">Lazaro MARTEGANI</td>
+                        <td class="total">14</td>
+                        <td class="diff">13</td>
+                        <td class="gap">7</td>
+                        <td class="esilver">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="ebronze">12</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">4</td>
+                        <td class="no">44</td>
+                        <td class="name">Antonio FRANCHINI VILLANOVA</td>
+                        <td class="total">13</td>
+                        <td class="diff">14</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">1</td>
+                        <td class="ebronze">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">10</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">5</td>
+                        <td class="no">86</td>
+                        <td class="name">Agustin TAPIA</td>
+                        <td class="total">10</td>
+                        <td class="diff">17</td>
+                        <td class="gap">3</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="ebronze">3</td>
+                        <td class="eventtotal">6</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">6</td>
+                        <td class="no">10</td>
+                        <td class="name">Gonzalo ALARCON</td>
+                        <td class="total">9</td>
+                        <td class="diff">18</td>
+                        <td class="gap">1</td>
+                        <td class="ebronze">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">8</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">7</td>
+                        <td class="no">12</td>
+                        <td class="name">Santino GONZALEZ</td>
+                        <td class="total">5</td>
+                        <td class="diff">22</td>
+                        <td class="gap">4</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">4</td>
+                    </tr>
+                </table>
+                <table class="runlegend" cellspacing="0 px">
+                    <tr>
+                        <td class="legend">Leyenda
+                        </td>
+                        <td class="gold">1</td>
+                        <td class="footername">1° puesto</td>
+                        <td class="silver">2</td>
+                        <td class="footername">2° puesto</td>
+                        <td class="bronze">3</td>
+                        <td class="footername">3° puesto</td>
+                        <td class="vr">VR</td>
+                        <td class="footername">VR - Vuelta Rápida</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="promocional" class="tab-content">
+            <div style="width: 1500">
+                <div class="headerbig">Chajarí - Promocional</div>
+                <div class="headerbottom"></div>
+                <div class="headersmall"> Temporada: 2026</div>
+                <table class="points" cellspacing="0 px">
+                    <colgroup>
+                        <col style="width:50px">
+                        <col style="width:60px">
+                        <col style="width:260px">
+                        <col style="width:70px">
+                        <col style="width:90px">
+                        <col style="width:90px">
+
+                        <!-- eventos -->
+                        <col span="20" style="width:55px">
+                    </colgroup>
+                    <tr class="header">
+                        <th colspan="6"></th>
+
+                        <th class="event" colspan="4" style="text-align:center;">
+                            1° Fecha
+                        </th>
+                        <th colspan="2" />
+                    </tr>
+                    <tr>
+                        <th class="competitor">Pos.</th>
+                        <th class="competitor">N°</th>
+                        <th class="competitor">Nombre</th>
+                        <th class="competitor">Total</th>
+                        <th class="competitor">Dif. resp. 1°</th>
+                        <th class="competitor">Dif. resp. anterior</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">1</td>
+                        <td class="no">5</td>
+                        <td class="name">Austin AVA</td>
+                        <td class="total">28</td>
+                        <td class="diff">0</td>
+                        <td class="gap">0</td>
+                        <td class="egold">1</td>
+                        <td class="egold">1</td>
+                        <td class="egold">5</td>
+                        <td class="egold">21<sup class="vr">VR</sup></td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">2</td>
+                        <td class="no">26</td>
+                        <td class="name">Ramiro RONCAGLIA</td>
+                        <td class="total">20</td>
+                        <td class="diff">8</td>
+                        <td class="gap">8</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="esilver">4</td>
+                        <td class="esilver">15</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">3</td>
+                        <td class="no">30</td>
+                        <td class="name">Manuel TAPIA</td>
+                        <td class="total">15</td>
+                        <td class="diff">13</td>
+                        <td class="gap">5</td>
+                        <td class="eventtotal">1</td>
+                        <td class="esilver">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="ebronze">12</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">4</td>
+                        <td class="no">24</td>
+                        <td class="name">Juan Emilio BEZRUKYJ</td>
+                        <td class="total">14</td>
+                        <td class="diff">14</td>
+                        <td class="gap">1</td>
+                        <td class="ebronze">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="ebronze">3</td>
+                        <td class="eventtotal">10</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">5</td>
+                        <td class="no">51</td>
+                        <td class="name">Lautaro COULLERI</td>
+                        <td class="total">10</td>
+                        <td class="diff">18</td>
+                        <td class="gap">4</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">8</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">6</td>
+                        <td class="no">192</td>
+                        <td class="name">Benjamin PEREZ</td>
+                        <td class="total">7</td>
+                        <td class="diff">21</td>
+                        <td class="gap">3</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">6</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">7</td>
+                        <td class="no">11</td>
+                        <td class="name">Thiago NOIR</td>
+                        <td class="total">5</td>
+                        <td class="diff">23</td>
+                        <td class="gap">2</td>
+                        <td class="esilver">1</td>
+                        <td class="ebronze">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">4</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">8</td>
+                        <td class="no">55</td>
+                        <td class="name">Carlos CEROLENI</td>
+                        <td class="total">1</td>
+                        <td class="diff">27</td>
+                        <td class="gap">4</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+
+                </table>
+                <table class="runlegend" cellspacing="0 px">
+                    <tr>
+                        <td class="legend">Leyenda
+                        </td>
+                        <td class="gold">1</td>
+                        <td class="footername">1° puesto</td>
+                        <td class="silver">2</td>
+                        <td class="footername">2° puesto</td>
+                        <td class="bronze">3</td>
+                        <td class="footername">3° puesto</td>
+                        <td class="vr">VR</td>
+                        <td class="footername">VR - Vuelta Rápida</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="150a" class="tab-content">
+            <div style="width: 1500">
+                <div class="headerbig">Chajarí - 150 A</div>
+                <div class="headerbottom"></div>
+                <div class="headersmall"> Temporada: 2026</div>
+                <table class="points" cellspacing="0 px">
+                    <colgroup>
+                        <col style="width:50px">
+                        <col style="width:60px">
+                        <col style="width:260px">
+                        <col style="width:70px">
+                        <col style="width:90px">
+                        <col style="width:90px">
+
+                        <!-- eventos -->
+                        <col span="20" style="width:55px">
+                    </colgroup>
+                    <tr class="header">
+                        <th colspan="6"></th>
+
+                        <th class="event" colspan="4" style="text-align:center;">
+                            1° Fecha
+                        </th>
+                        <th colspan="2" />
+                    </tr>
+                    <tr>
+                        <th class="competitor">Pos.</th>
+                        <th class="competitor">N°</th>
+                        <th class="competitor">Nombre</th>
+                        <th class="competitor">Total</th>
+                        <th class="competitor">Dif. resp. 1°</th>
+                        <th class="competitor">Dif. resp. anterior</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">1</td>
+                        <td class="no">49</td>
+                        <td class="name">Nicolas FERNANDEZ</td>
+                        <td class="total">27</td>
+                        <td class="diff">0</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="egold">1</td>
+                        <td class="egold">5</td>
+                        <td class="egold">20</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">2</td>
+                        <td class="no">119</td>
+                        <td class="name">Cristian AROSIO</td>
+                        <td class="total">20</td>
+                        <td class="diff">7</td>
+                        <td class="gap">7</td>
+                        <td class="eventtotal">1</td>
+                        <td class="esilver">0</td>
+                        <td class="esilver">4</td>
+                        <td class="esilver">15</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">3</td>
+                        <td class="no">4</td>
+                        <td class="name">Ivan PERCARA</td>
+                        <td class="total">17</td>
+                        <td class="diff">10</td>
+                        <td class="gap">3</td>
+                        <td class="egold">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="ebronze">3</td>
+                        <td class="ebronze">13<sup class="vr">VR</sup></td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">4</td>
+                        <td class="no">196</td>
+                        <td class="name">Bruno DIAZ</td>
+                        <td class="total">13</td>
+                        <td class="diff">14</td>
+                        <td class="gap">4</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">10</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">5</td>
+                        <td class="no">15</td>
+                        <td class="name">Martina BORGHESAN</td>
+                        <td class="total">9</td>
+                        <td class="diff">18</td>
+                        <td class="gap">4</td>
+                        <td class="esilver">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">8</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">6</td>
+                        <td class="no">44</td>
+                        <td class="name">Bruno BALGUENET</td>
+                        <td class="total">7</td>
+                        <td class="diff">20</td>
+                        <td class="gap">2</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">6</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">7</td>
+                        <td class="no">172</td>
+                        <td class="name">Juan Martin STIVANELLO</td>
+                        <td class="total">6</td>
+                        <td class="diff">21</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">1</td>
+                        <td class="ebronze">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">4</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">8</td>
+                        <td class="no">771</td>
+                        <td class="name">Maximo GATTI</td>
+                        <td class="total">3</td>
+                        <td class="diff">24</td>
+                        <td class="gap">3</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">3</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">9</td>
+                        <td class="no">48</td>
+                        <td class="name">Pablo NOIR</td>
+                        <td class="total">3</td>
+                        <td class="diff">24</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">10</td>
+                        <td class="no">46</td>
+                        <td class="name">Juan Cruz LEGAL</td>
+                        <td class="total">2</td>
+                        <td class="diff">25</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">1</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">11</td>
+                        <td class="no">41</td>
+                        <td class="name">Diego SAMBERRO</td>
+                        <td class="total">1</td>
+                        <td class="diff">26</td>
+                        <td class="gap">1</td>
+                        <td class="ebronze">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">12</td>
+                        <td class="no">249</td>
+                        <td class="name">Federico TISOCCO</td>
+                        <td class="total">1</td>
+                        <td class="diff">26</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">13</td>
+                        <td class="no">443</td>
+                        <td class="name">Nicolas CAPOVILLA</td>
+                        <td class="total">1</td>
+                        <td class="diff">26</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">14</td>
+                        <td class="no">124</td>
+                        <td class="name">Agustin URQUIZA</td>
+                        <td class="total">1</td>
+                        <td class="diff">26</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                </table>
+                <table class="runlegend" cellspacing="0 px">
+                    <tr>
+                        <td class="legend">Leyenda
+                        </td>
+                        <td class="gold">1</td>
+                        <td class="footername">1° puesto</td>
+                        <td class="silver">2</td>
+                        <td class="footername">2° puesto</td>
+                        <td class="bronze">3</td>
+                        <td class="footername">3° puesto</td>
+                        <td class="vr">VR</td>
+                        <td class="footername">VR - Vuelta Rápida</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="150b" class="tab-content">
+            <div style="width: 1700">
+                <div class="headerbig">Chajarí - 150 B</div>
+                <div class="headerbottom"></div>
+                <div class="headersmall"> Temporada: 2026</div>
+                <table class="points" cellspacing="0 px">
+                    <colgroup>
+                        <col style="width:50px">
+                        <col style="width:60px">
+                        <col style="width:260px">
+                        <col style="width:70px">
+                        <col style="width:90px">
+                        <col style="width:90px">
+
+                        <!-- eventos -->
+                        <col span="20" style="width:55px">
+                    </colgroup>
+                    <tr class="header">
+                        <th colspan="6"></th>
+
+                        <th class="event" colspan="4" style="text-align:center;">
+                            1° Fecha
+                        </th>
+                        <th colspan="2" />
+                    </tr>
+                    <tr>
+                        <th class="competitor">Pos.</th>
+                        <th class="competitor">N°</th>
+                        <th class="competitor">Nombre</th>
+                        <th class="competitor">Total</th>
+                        <th class="competitor">Dif. resp. 1°</th>
+                        <th class="competitor">Dif. resp. anterior</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">1</td>
+                        <td class="no">119</td>
+                        <td class="name">Cristian AROSIO</td>
+                        <td class="total">27</td>
+                        <td class="diff">0</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="egold">1</td>
+                        <td class="egold">5</td>
+                        <td class="egold">20</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">2</td>
+                        <td class="no">2</td>
+                        <td class="name">Gabriel CHIESA</td>
+                        <td class="total">20</td>
+                        <td class="diff">7</td>
+                        <td class="gap">7</td>
+                        <td class="esilver">1</td>
+                        <td class="ebronze">0</td>
+                        <td class="esilver">4</td>
+                        <td class="esilver">15</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">3</td>
+                        <td class="no">94</td>
+                        <td class="name">Juan Manuel CANO</td>
+                        <td class="total">14</td>
+                        <td class="diff">13</td>
+                        <td class="gap">6</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="ebronze">12</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">4</td>
+                        <td class="no">1</td>
+                        <td class="name">Nicolas DELL ORTO</td>
+                        <td class="total">13</td>
+                        <td class="diff">14</td>
+                        <td class="gap">1</td>
+                        <td class="egold">1</td>
+                        <td class="esilver">0</td>
+                        <td class="ebronze">3</td>
+                        <td class="eventtotal">9<sup class="vr">VR</sup></td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">5</td>
+                        <td class="no">77</td>
+                        <td class="name">Alexis MATINATA</td>
+                        <td class="total">13</td>
+                        <td class="diff">14</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">10</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">6</td>
+                        <td class="no">771</td>
+                        <td class="name">Maximo GATTI</td>
+                        <td class="total">7</td>
+                        <td class="diff">20</td>
+                        <td class="gap">6</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">6</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">7</td>
+                        <td class="no">3</td>
+                        <td class="name">Ivan PERCARA</td>
+                        <td class="total">1</td>
+                        <td class="diff">26</td>
+                        <td class="gap">6</td>
+                        <td class="ebronze">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">8</td>
+                        <td class="no">49</td>
+                        <td class="name">Nicolas FERNANDEZ</td>
+                        <td class="total">1</td>
+                        <td class="diff">26</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">9</td>
+                        <td class="no">56</td>
+                        <td class="name">Matias FOCHESATTO</td>
+                        <td class="total">1</td>
+                        <td class="diff">26</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">10</td>
+                        <td class="no">48</td>
+                        <td class="name">Natalia ALVAREZ</td>
+                        <td class="total">1</td>
+                        <td class="diff">26</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                </table>
+                <table class="runlegend" cellspacing="0 px">
+                    <tr>
+                        <td class="legend">Leyenda
+                        </td>
+                        <td class="gold">1</td>
+                        <td class="footername">1° puesto</td>
+                        <td class="silver">2</td>
+                        <td class="footername">2° puesto</td>
+                        <td class="bronze">3</td>
+                        <td class="footername">3° puesto</td>
+                        <td class="vr">VR</td>
+                        <td class="footername">VR - Vuelta Rápida</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="150c" class="tab-content">
+            <div style="width: 1500">
+                <div class="headerbig">Chajarí - 150 C</div>
+                <div class="headerbottom"></div>
+                <div class="headersmall"> Temporada: 2026</div>
+                <table class="points" cellspacing="0 px">
+                    <colgroup>
+                        <col style="width:50px">
+                        <col style="width:60px">
+                        <col style="width:260px">
+                        <col style="width:70px">
+                        <col style="width:90px">
+                        <col style="width:90px">
+
+                        <!-- eventos -->
+                        <col span="20" style="width:55px">
+                    </colgroup>
+                    <tr class="header">
+                        <th colspan="6"></th>
+
+                        <th class="event" colspan="4" style="text-align:center;">
+                            1° Fecha
+                        </th>
+                        <th colspan="2" />
+                    </tr>
+                    <tr>
+                        <th class="competitor">Pos.</th>
+                        <th class="competitor">N°</th>
+                        <th class="competitor">Nombre</th>
+                        <th class="competitor">Total</th>
+                        <th class="competitor">Dif. resp. 1°</th>
+                        <th class="competitor">Dif. resp. anterior</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">1</td>
+                        <td class="no">94</td>
+                        <td class="name">Juan Manuel CANO</td>
+                        <td class="total">27</td>
+                        <td class="diff">0</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="egold">1</td>
+                        <td class="egold">5</td>
+                        <td class="egold">20</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">2</td>
+                        <td class="no">77</td>
+                        <td class="name">Alexis MATINATA</td>
+                        <td class="total">19</td>
+                        <td class="diff">8</td>
+                        <td class="gap">8</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="esilver">16</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">3</td>
+                        <td class="no">33</td>
+                        <td class="name">Diego SANTAMARIA</td>
+                        <td class="total">17</td>
+                        <td class="diff">10</td>
+                        <td class="gap">2</td>
+                        <td class="esilver">1</td>
+                        <td class="esilver">0</td>
+                        <td class="esilver">4</td>
+                        <td class="ebronze">12</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">4</td>
+                        <td class="no">56</td>
+                        <td class="name">Matias FOCHESATTO</td>
+                        <td class="total">14</td>
+                        <td class="diff">13</td>
+                        <td class="gap">3</td>
+                        <td class="ebronze">1</td>
+                        <td class="ebronze">0</td>
+                        <td class="ebronze">3</td>
+                        <td class="eventtotal">10</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">5</td>
+                        <td class="no">66</td>
+                        <td class="name">Carlos BORBA</td>
+                        <td class="total">9</td>
+                        <td class="diff">18</td>
+                        <td class="gap">5</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">8</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">6</td>
+                        <td class="no">973</td>
+                        <td class="name">Jose DALLACAMINA</td>
+                        <td class="total">8</td>
+                        <td class="diff">19</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">6</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">7</td>
+                        <td class="no">27</td>
+                        <td class="name">Gonzalo SURT</td>
+                        <td class="total">5</td>
+                        <td class="diff">22</td>
+                        <td class="gap">3</td>
+                        <td class="egold">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">4</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">8</td>
+                        <td class="no">823</td>
+                        <td class="name">Martin AVA</td>
+                        <td class="total">4</td>
+                        <td class="diff">23</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">3</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">9</td>
+                        <td class="no">111</td>
+                        <td class="name">Fernando PONCE</td>
+                        <td class="total">3</td>
+                        <td class="diff">24</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">10</td>
+                        <td class="no">84</td>
+                        <td class="name">Alexis FIGUEROA PERCARA</td>
+                        <td class="total">1</td>
+                        <td class="diff">26</td>
+                        <td class="gap">2</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                </table>
+                <table class="runlegend" cellspacing="0 px">
+                    <tr>
+                        <td class="legend">Leyenda
+                        </td>
+                        <td class="gold">1</td>
+                        <td class="footername">1° puesto</td>
+                        <td class="silver">2</td>
+                        <td class="footername">2° puesto</td>
+                        <td class="bronze">3</td>
+                        <td class="footername">3° puesto</td>
+                        <td class="vr">VR</td>
+                        <td class="footername">VR - Vuelta Rápida</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="150master" class="tab-content">
+            <div style="width: 1400">
+                <div class="headerbig">ACEKP - 150 Master</div>
+                <div class="headerbottom"></div>
+                <div class="headersmall"> Temporada: 2026</div>
+                <table class="points" cellspacing="0 px">
+                    <colgroup>
+                        <col style="width:50px">
+                        <col style="width:60px">
+                        <col style="width:260px">
+                        <col style="width:70px">
+                        <col style="width:90px">
+                        <col style="width:90px">
+
+                        <!-- eventos -->
+                        <col span="20" style="width:55px">
+                    </colgroup>
+                    <tr class="header">
+                        <th colspan="6"></th>
+
+                        <th class="event" colspan="4" style="text-align:center;">
+                            1° Fecha - Gualeguay
+                        </th>
+
+                        <th class="event" colspan="5" style="text-align:center;">
+                            2° Fecha - Paraná
+                        </th>
+                        <th colspan="2" />
+                    <tr>
+                        <th class="competitor">Pos.</th>
+                        <th class="competitor">N°</th>
+                        <th class="competitor">Nombre</th>
+                        <th class="competitor">Total</th>
+                        <th class="competitor">Dif. resp. 1°</th>
+                        <th class="competitor">Dif. resp. anterior</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">1</td>
+                        <td class="no">2</td>
+                        <td class="name">Martinez Omar </td>
+                        <td class="total">54</td>
+                        <td class="diff">0</td>
+                        <td class="gap">0</td>
+                        <td class="egold">2</td>
+                        <td class="ebronze">0</td>
+                        <td class="egold">5</td>
+                        <td class="eventtotal">x</td>
+                        <td class="egold">20</td>
+                        <td class="esilver">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="egold">5</td>
+                        <td class="egold">20</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">2</td>
+                        <td class="no">44</td>
+                        <td class="name">Iriarte Matias </td>
+                        <td class="total">29</td>
+                        <td class="diff">25</td>
+                        <td class="gap">25</td>
+                        <td class="eventtotal">2</td>
+                        <td class="egold">1</td>
+                        <td class="esilver">4</td>
+                        <td class="eventtotal">x</td>
+                        <td class="ebronze">12</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">8</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">3</td>
+                        <td class="no">6</td>
+                        <td class="name">Cauzzi Edgardo </td>
+                        <td class="total">28</td>
+                        <td class="diff">26</td>
+                        <td class="gap">1</td>
+                        <td class="esilver">2</td>
+                        <td class="esilver">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="egold">5</td>
+                        <td class="eventtotal">0</td>
+                        <td class="ebronze">2</td>
+                        <td class="egold">1</td>
+                        <td class="ebronze">3</td>
+                        <td class="esilver">15</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">4</td>
+                        <td class="no">31</td>
+                        <td class="name">Antivero Santiago </td>
+                        <td class="total">25</td>
+                        <td class="diff">29</td>
+                        <td class="gap">3</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="esilver">4</td>
+                        <td class="esilver">15</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">5</td>
+                        <td class="no">38</td>
+                        <td class="name">Mizawak Gustavo </td>
+                        <td class="total">24</td>
+                        <td class="diff">30</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">4</td>
+                        <td class="eventtotal">2</td>
+                        <td class="ebronze">0</td>
+                        <td class="esilver">4</td>
+                        <td class="ebronze">12</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">6</td>
+                        <td class="no">24</td>
+                        <td class="name">Tecco Martin </td>
+                        <td class="total">19</td>
+                        <td class="diff">35</td>
+                        <td class="gap">5</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="ebronze">3</td>
+                        <td class="eventtotal">6</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">6</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">7</td>
+                        <td class="no">26</td>
+                        <td class="name">Bianchini Walter </td>
+                        <td class="total">18</td>
+                        <td class="diff">36</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="ebronze">3</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">8</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">2</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">8</td>
+                        <td class="no">20</td>
+                        <td class="name">Karst Mario </td>
+                        <td class="total">15</td>
+                        <td class="diff">39</td>
+                        <td class="gap">3</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">10</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">9</td>
+                        <td class="no">33</td>
+                        <td class="name">Altamirano Miguel </td>
+                        <td class="total">14</td>
+                        <td class="diff">40</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">10</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">10</td>
+                        <td class="no">77</td>
+                        <td class="name">Veronesi Joaquin </td>
+                        <td class="total">7</td>
+                        <td class="diff">47</td>
+                        <td class="gap">7</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">3</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">11</td>
+                        <td class="no">14</td>
+                        <td class="name">Larraza Oscar </td>
+                        <td class="total">7</td>
+                        <td class="diff">47</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">3</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">12</td>
+                        <td class="no">1</td>
+                        <td class="name">Michelli Francisco </td>
+                        <td class="total">6</td>
+                        <td class="diff">48</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="egold">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">4</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">13</td>
+                        <td class="no">15</td>
+                        <td class="name">Hamdan Yamil </td>
+                        <td class="total">6</td>
+                        <td class="diff">48</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">14</td>
+                        <td class="no">60</td>
+                        <td class="name">Rengel Jose </td>
+                        <td class="total">5</td>
+                        <td class="diff">49</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">15</td>
+                        <td class="no">32</td>
+                        <td class="name">Troncoso Hernan </td>
+                        <td class="total">4</td>
+                        <td class="diff">50</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">16</td>
+                        <td class="no">76</td>
+                        <td class="name">Brondani Leonardo </td>
+                        <td class="total">3</td>
+                        <td class="diff">51</td>
+                        <td class="gap">1</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">2</td>
+                        <td class="esilver">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">1</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">17</td>
+                        <td class="no">59</td>
+                        <td class="name">Lopez Sergio </td>
+                        <td class="total">3</td>
+                        <td class="diff">51</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">18</td>
+                        <td class="no">8</td>
+                        <td class="name">Viviani Luis </td>
+                        <td class="total">2</td>
+                        <td class="diff">52</td>
+                        <td class="gap">1</td>
+                        <td class="ebronze">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">19</td>
+                        <td class="no">22</td>
+                        <td class="name">Diaz Andres </td>
+                        <td class="total">2</td>
+                        <td class="diff">52</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                    </tr>
+                </table>
+                <table class="runlegend" cellspacing="0 px">
+                    <tr>
+                        <td class="legend">Leyenda
+                        </td>
+                        <td class="gold">1</td>
+                        <td class="footername">1° puesto</td>
+                        <td class="silver">2</td>
+                        <td class="footername">2° puesto</td>
+                        <td class="bronze">3</td>
+                        <td class="footername">3° puesto</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="150sinbanco" class="tab-content">
+            <div style="width: 1300">
+                <div class="headerbig">ACEKP - 150 Sin Banco</div>
+                <div class="headerbottom"></div>
+                <div class="headersmall"> Temporada: 2026</div>
+                <table class="points" cellspacing="0 px">
+                    <colgroup>
+                        <col style="width:50px">
+                        <col style="width:60px">
+                        <col style="width:260px">
+                        <col style="width:70px">
+                        <col style="width:90px">
+                        <col style="width:90px">
+
+                        <!-- eventos -->
+                        <col span="20" style="width:55px">
+                    </colgroup>
+                    <tr class="header">
+                        <th colspan="6"></th>
+
+                        <th class="event" colspan="4" style="text-align:center;">
+                            1° Fecha - Gualeguay
+                        </th>
+
+                        <th class="event" colspan="5" style="text-align:center;">
+                            2° Fecha - Paraná
+                        </th>
+                        <th colspan="2" />
+                    </tr>
+                    <tr>
+                        <th class="competitor">Pos.</th>
+                        <th class="competitor">N°</th>
+                        <th class="competitor">Nombre</th>
+                        <th class="competitor">Total</th>
+                        <th class="competitor">Dif. resp. 1°</th>
+                        <th class="competitor">Dif. resp. anterior</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                        <th class="eventtotal">Total</th>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">1</td>
+                        <td class="no">95</td>
+                        <td class="name">Balbuena Franco </td>
+                        <td class="total">55</td>
+                        <td class="diff">0</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="esilver">0</td>
+                        <td class="egold">5</td>
+                        <td class="egold">20</td>
+                        <td class="eventtotal">2</td>
+                        <td class="egold">1</td>
+                        <td class="egold">5</td>
+                        <td class="egold">20</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">2</td>
+                        <td class="no">12</td>
+                        <td class="name">Fabian Agustin </td>
+                        <td class="total">37</td>
+                        <td class="diff">18</td>
+                        <td class="gap">18</td>
+                        <td class="esilver">2</td>
+                        <td class="ebronze">0</td>
+                        <td class="esilver">4</td>
+                        <td class="esilver">15</td>
+                        <td class="esilver">2</td>
+                        <td class="esilver">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="ebronze">12</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">3</td>
+                        <td class="no">81</td>
+                        <td class="name">Dell Orto Nicolas </td>
+                        <td class="total">29</td>
+                        <td class="diff">26</td>
+                        <td class="gap">8</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">6</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="esilver">4</td>
+                        <td class="esilver">15</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">4</td>
+                        <td class="no">8</td>
+                        <td class="name">Caino Milagros </td>
+                        <td class="total">26</td>
+                        <td class="diff">29</td>
+                        <td class="gap">3</td>
+                        <td class="egold">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">8</td>
+                        <td class="egold">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="ebronze">3</td>
+                        <td class="eventtotal">10</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">5</td>
+                        <td class="no">71</td>
+                        <td class="name">Laplacette Juan M. </td>
+                        <td class="total">20</td>
+                        <td class="diff">35</td>
+                        <td class="gap">6</td>
+                        <td class="eventtotal">2</td>
+                        <td class="egold">1</td>
+                        <td class="ebronze">3</td>
+                        <td class="ebronze">12</td>
+                        <td class="eventtotal">2</td>
+                        <td class="ebronze">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">x</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">6</td>
+                        <td class="no">99</td>
+                        <td class="name">Bozo Franco </td>
+                        <td class="total">14</td>
+                        <td class="diff">41</td>
+                        <td class="gap">6</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">10</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">7</td>
+                        <td class="no">14</td>
+                        <td class="name">Martinez Luciano </td>
+                        <td class="total">12</td>
+                        <td class="diff">43</td>
+                        <td class="gap">2</td>
+                        <td class="ebronze">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="ebronze">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">8</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">8</td>
+                        <td class="no">41</td>
+                        <td class="name">Morales Adolfo </td>
+                        <td class="total">10</td>
+                        <td class="diff">45</td>
+                        <td class="gap">2</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">6</td>
+                    </tr>
+                    <tr class="even">
+                        <td class="pos">9</td>
+                        <td class="no">87</td>
+                        <td class="name">Mogni Ayrton </td>
+                        <td class="total">6</td>
+                        <td class="diff">49</td>
+                        <td class="gap">4</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">4</td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="pos">10</td>
+                        <td class="no">22</td>
+                        <td class="name">Palombizio Facundo </td>
+                        <td class="total">6</td>
+                        <td class="diff">49</td>
+                        <td class="gap">0</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">x</td>
+                        <td class="eventtotal">2</td>
+                        <td class="eventtotal">0</td>
+                        <td class="eventtotal">1</td>
+                        <td class="eventtotal">3</td>
+                    </tr>
+                </table>
+                <table class="runlegend" cellspacing="0 px">
+                    <tr>
+                        <td class="legend">Leyenda
+                        </td>
+                        <td class="gold">1</td>
+                        <td class="footername">1er puesto</td>
+                        <td class="silver">2</td>
+                        <td class="footername">2o puesto</td>
+                        <td class="bronze">3</td>
+                        <td class="footername">3er puesto</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <script>
+
+                /* ============================= */
+                /* TABS */
+                /* ============================= */
+                function openTab(tabId, el) {
+
+                    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+                    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+
+                    const tab = document.getElementById(tabId);
+                    if (tab) tab.classList.add("active");
+
+                    if (el) el.classList.add("active");
+                }
+
+                /* abrir primera */
+                document.addEventListener("DOMContentLoaded", function () {
+                    const firstTab = document.querySelector(".tab");
+                    if (firstTab) firstTab.click();
+                });
+
+                /* ============================= */
+                /* DETECTAR FECHAS Y PONER LINEA */
+                /* ============================= */
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    document.querySelectorAll("table.points").forEach(table => {
+
+                        const headerEvents = table.querySelectorAll("th.event");
+                        const headerRow = table.querySelectorAll("tr")[1]; // fila de "Total"
+                        const headers = headerRow.querySelectorAll("th");
+
+                        let col = 6; // arranca después de columnas fijas
+
+                        headerEvents.forEach(th => {
+
+                            const span = parseInt(th.getAttribute("colspan")) || 1;
+
+                            // generar labels dinámicos
+                            let labels = [];
+
+                            if (span === 4) {
+                                labels = ["Part.", "Clas.", "Serie", "Final"];
+                            }
+                            else if (span === 5) {
+                                labels = ["Part.", "Clas.", "1° Serie", "2° Serie", "Final"];
+                            }
+                            else if (span === 7) {
+                                labels = ["Part.", "Clas.", "1° Serie", "2° Serie", "3° Serie", "1° Final", "2° Final"];
+                            }
+                            else {
+                                // fallback genérico
+                                for (let i = 0; i < span; i++) {
+                                    labels.push("Run " + (i + 1));
+                                }
+                            }
+
+                            // aplicar labels
+                            for (let i = 0; i < span; i++) {
+                                if (headers[col + i]) {
+                                    headers[col + i].textContent = labels[i] || "";
+                                }
+                            }
+
+                            col += span;
+                        });
+
+                    });
+
+                });
+
+            </script>
+
+</body>
+
+</html>
